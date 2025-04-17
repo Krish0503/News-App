@@ -14,14 +14,15 @@ async function getNews() {
   loader.classList.remove("hidden");
 
   const proxy = "https://api.allorigins.win/get?url=";
-  const targetUrl = encodeURIComponent(`https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}`);
-  const url = `${proxy}${targetUrl}`;
+const targetUrl = encodeURIComponent(`https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}`);
+const url = `${proxy}${targetUrl}`;
+
 
   try {
     const response = await fetch(url);
     const dataWrapped = await response.json();
     const data = JSON.parse(dataWrapped.contents);
-
+    
     loader.classList.add("hidden");
 
     if (!data.articles || data.articles.length === 0) {
