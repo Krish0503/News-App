@@ -13,8 +13,11 @@ async function getNews() {
 
   loader.classList.remove("hidden");
 
+  const proxy = "https://cors-anywhere.herokuapp.com/";
+  const url = `${proxy}https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}`;
+
   try {
-    const response = await fetch(`https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}`);
+    const response = await fetch(url);
     const data = await response.json();
     loader.classList.add("hidden");
 
@@ -39,4 +42,5 @@ async function getNews() {
     console.error(error);
   }
 }
+
 
