@@ -13,12 +13,15 @@ async function getNews() {
 
   loader.classList.remove("hidden");
 
-  const proxy = "https://cors-anywhere.herokuapp.com/";
-  const url = `${proxy}https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}`;
+  const proxy = "https://api.allorigins.win/get?url=";
+  const targetUrl = encodeURIComponent(`https://newsapi.org/v2/everything?q=${topic}&apiKey=${apiKey}`);
+  const url = `${proxy}${targetUrl}`;
 
   try {
     const response = await fetch(url);
-    const data = await response.json();
+    const dataWrapped = await response.json();
+    const data = JSON.parse(dataWrapped.contents);
+
     loader.classList.add("hidden");
 
     if (!data.articles || data.articles.length === 0) {
@@ -39,8 +42,9 @@ async function getNews() {
   } catch (error) {
     loader.classList.add("hidden");
     newsContainer.innerHTML = "<p>Error loading news. Please try again later.</p>";
-    console.error(error);
+    console.error("Fetch error:", error);
   }
 }
+
 
 
